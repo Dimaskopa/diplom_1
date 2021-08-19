@@ -47,7 +47,7 @@ class Yanupload():
             return size_dict['height']
 
 # Метод для скачивания фотографий с профиля в ВК, нужно ввести id пользователя и id альбома, по умолчанию альбом profile
-    def vk_download_profile(self, owner_id, album_id = 'profile'):
+    def vk_download_profile(self, owner_id='8168323', album_id = 'profile'):
         params_vk = {
             'owner_id': owner_id,
             'album_id': album_id,
@@ -82,13 +82,19 @@ class Yanupload():
         vk_dict = dict(zip(count_list, url_photo))
         self.upload(vk_dict)
 
-
+if __name__ == "__main__":
 #достаем токен вк из файла:
-with open('vk_token.txt', 'r', encoding='utf-8') as file_reader:
-    token_vk = file_reader.read().strip()
-with open('yandex_token.txt', 'r', encoding='utf-8') as file_reader:
-    token_ya = file_reader.read().strip()
-abc = Yanupload(token_vk, token_ya)
+    with open('vk_token.txt', 'r', encoding='utf-8') as file_reader:
+        token_vk = file_reader.read().strip()
+    with open('yandex_token.txt', 'r', encoding='utf-8') as file_reader:
+        token_ya = file_reader.read().strip()
+    abc = Yanupload(token_vk, token_ya)
 # Вводим id пользователя и id альбома, если не введете id альбома, по умолчанию загрузятся фотографии с профиля.
-abc.vk_download_profile('8168323', '164606769')
+    user_id = input('Введите id пользователя: ')
+    if user_id == '':
+        user_id = '8168323'
+    album_id_ = input('Введите id альбома: ')
+    if album_id_ == '':
+        album_id_ = 'profile'
+    abc.vk_download_profile(user_id, album_id_)
 
